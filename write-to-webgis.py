@@ -6,12 +6,12 @@ print("LOADING LAYER INTO DATAFRAME...")
 NYC_tree_survey = spark.read.format("webgis").load(layer_url)
 
 # Group by species and calculate average of numeric fields
-print("GROUPING BY SPECIES...")
-groupby_species = NYC_tree_survey.groupBy("spc_common").count()
+print("FILTERING AND GROUPING BY SPECIES...")
+poorhealth_species_count = NYC_tree_survey.filter("health = 'Poor'").groupBy("spc_common").count()
 
 # Write to ArcGIS Datastore (spatiotemporal by default)
 print("WRITING TO ARCGIS ENTERPRISE...")
-groupby_species.write.format("webgis").save("NYC_Tree_Species_Count")
+poorhealth_species_count.write.format("webgis").save("NYC_Tree_Count")
 
 
 
