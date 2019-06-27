@@ -22,18 +22,28 @@ if __name__ == "__main__":
     parser.add_argument('-portal', dest='portal', action='store', help='Portal URL')
     parser.add_argument('-username', dest='username', action='store', help='Portal username')
     parser.add_argument('-password', dest='password', action='store', help='Portal password')
+    parser.add_argument('-profile', dest='profile', action='store', help='GIS profile (stored credentials)')
     parser.add_argument('-script', dest='script', action='store', help='Full path to Python script')
     args = parser.parse_args()
 
     # Check that a Portal URL, username, password, and path to python script have been provided
+    # A GIS profile can also be used to access ArcGIS Enterprise.
+    # See https://developers.arcgis.com/python/guide/
+    # working-with-different-authentication-schemes/#Storing-your-credentialls-locally
     portal_url = vars(args)["portal"]
     username = vars(args)["username"]
     password = vars(args)["password"]
+    profile = vars(args)["profile"]
     script_path = vars(args)["script"]
-    if None in [portal_url, username, password, script_path]:
-        print("ERROR: Please specify a portal URL, username, password, and path to script.\n")
+    if script_path is None:
+        print("ERROR: Please specify a path to the script to run.\n")
         parser.print_help()
         sys.exit(1)
+    if not (portal_url and username and password):
+        if not profile:
+            print("ERROR: Please specify a Portal URL, username, and password OR a GIS profile\n")
+            parser.print_help()
+            sys.exit(1)
 
     # Read script content using file path provided by user
     try:
@@ -46,7 +56,10 @@ if __name__ == "__main__":
 
     try:
         print("Connecting to ArcGIS Enterprise...")
-        gis = arcgis.gis.GIS(url=portal_url, username=username, password=password)
+        if portal_url and username and password:
+            gis = arcgis.gis.GIS(url=portal_url, username=username, password=password, profile=profile)
+        else:
+            gis = arcgis.gis.GIS(profile=profile)
     except Exception as e:
         print("ERROR: Could not connect to ArcGIS Enterprise.\n" +
               "Details: " + str(e))
