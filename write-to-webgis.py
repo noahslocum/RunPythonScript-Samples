@@ -5,10 +5,14 @@ layer_url = "https://dev0005368.esri.com/gax/rest/services/DataStoreCatalogs/big
 print("LOADING LAYER INTO DATAFRAME...")
 NYC_tree_survey = spark.read.format("webgis").load(layer_url)
 
-# Show DataFrame schema
-print("SCHEMA:")
-NYC_tree_survey.printSchema()
+# Group by species and calculate average of numeric fields
+print("GROUPING BY SPECIES...")
+groupby_species = NYC_tree_survey.groupBy("spc_common").count()
 
-# Count number of features
-print("COUNTING FEATURES...")
-print("Count of features: {}".format(NYC_tree_survey.count()))
+# Write to ArcGIS Datastore (spatiotemporal by default)
+print("WRITING TO ARCGIS ENTERPRISE...")
+groupby_species.write.format("webgis").save("NYC_Tree_Species_Count")
+
+
+
+
