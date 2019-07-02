@@ -1,8 +1,12 @@
-# Data can be found at https://data.cityofnewyork.us/Environment/2015-Street-Tree-Census-Tree-Data/uvpi-gqnh
-layer_url = "https://dev0005368.esri.com/gax/rest/services/DataStoreCatalogs/bigDataFileShares_GAServerDemoData/BigDataCatalogServer/NYC_tree_survey"
+"""
+This script loads a Big Data File Share layer into a Spark DataFrame, prints the DataFrame schema to the console, and
+prints the count of features in the dataset to the console.
+"""
 
-# Load the big data file share layer into a DataFrame
-print("LOADING LAYER INTO DATAFRAME...")
+print("LOADING LAYERS INTO DATAFRAMES...")
+# Load the a layer of tree locations into a DataFrame
+# Data can be found at https://data.cityofnewyork.us/Environment/2015-Street-Tree-Census-Tree-Data/uvpi-gqnh
+layer_url = "https://dev0000587.esri.com/gax/rest/services/DataStoreCatalogs/bigDataFileShares_GAServerDemoData/BigDataCatalogServer/NYC_tree_survey"
 NYC_tree_survey = spark.read.format("webgis").load(layer_url)
 
 # Show DataFrame schema
