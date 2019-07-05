@@ -2,7 +2,7 @@
 This script loads a Big Data File Share layer of tree locations into a Spark DataFrame, calculates a group-by table on
 tree species that have poor health, and writes the result to a feature service.
 """
-import random
+import uuid
 
 print("LOADING LAYERS INTO DATAFRAMES...")
 # Load the a layer of tree locations into a DataFrame
@@ -16,4 +16,4 @@ poorhealth_species_count = NYC_tree_survey.filter("health = 'Poor'").groupBy("sp
 
 # Write to ArcGIS Datastore (spatiotemporal by default)
 print("WRITING TO ARCGIS ENTERPRISE...")
-poorhealth_species_count.write.format("webgis").save("NYC_Tree_Count_{}".format(random.randrange(10*6)))
+poorhealth_species_count.write.format("webgis").save("NYC_Tree_Count_{}".format(str(uuid.uuid4())[:4]))

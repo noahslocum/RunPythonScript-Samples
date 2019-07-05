@@ -1,4 +1,4 @@
-import random
+import uuid
 
 print("LOADING LAYERS INTO DATAFRAMES...")
 # Load the a layer of tree locations into a DataFrame
@@ -32,4 +32,4 @@ tree_density_clipped = geoanalytics.clip_layer(tree_density, boroughs_proj.filte
 
 # Write result to ArcGIS DataStore
 print("WRITING TO ARCGIS ENTERPRISE...")
-tree_density_clipped.write.format("webgis").save("manhattan_tree_density_{}".format(random.randrange(10 * 6)))
+tree_density_clipped.write.format("webgis").save("manhattan_tree_density_{}".format(str(uuid.uuid4())[:4]))

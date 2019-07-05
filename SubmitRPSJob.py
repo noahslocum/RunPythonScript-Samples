@@ -6,35 +6,25 @@ The Run Python Script tool executes Python code on your GeoAnalytics Server site
 GeoAnalytics tools and pyspark functionality
 To learn more about Run Python Script see https://developers.arcgis.com/rest/services-reference/run-python-script.htm
 
-Example usage:
-RPS-runner.py -portal https://mydomain.com/portal -username analyst1 -password ilovegis -script C:\workflow1.py
+Example CLI usage:
+SubmitRPSJob.py -portal https://mydomain.com/portal -username analyst1 -password ilovegis -script C:\workflow1.py
+
+Example Python usage:
+import SubmitRPSJob
+submit(profile="demo1", script="C:\workflow1.py")
 """
 
 import arcgis.env
 import argparse
 import sys
 
-if __name__ == "__main__":
 
-    # Parse script arguments
-    parser = argparse.ArgumentParser(
-        description='Executes a Python script using the Run Python Script tool in ArcGIS GeoAnalytics Server')
-    parser.add_argument('-portal', dest='portal', action='store', help='Portal URL')
-    parser.add_argument('-username', dest='username', action='store', help='Portal username')
-    parser.add_argument('-password', dest='password', action='store', help='Portal password')
-    parser.add_argument('-profile', dest='profile', action='store', help='GIS profile (stored credentials)')
-    parser.add_argument('-script', dest='script', action='store', help='Full path to Python script')
-    args = parser.parse_args()
+def submit(script_path, portal_url=None, username=None, password=None, profile=None):
 
     # Check that a Portal URL, username, password, and path to python script have been provided
     # A GIS profile can also be used to access ArcGIS Enterprise.
     # See https://developers.arcgis.com/python/guide/
     # working-with-different-authentication-schemes/#Storing-your-credentialls-locally
-    portal_url = vars(args)["portal"]
-    username = vars(args)["username"]
-    password = vars(args)["password"]
-    profile = vars(args)["profile"]
-    script_path = vars(args)["script"]
     if script_path is None:
         print("ERROR: Please specify a path to the script to run.\n")
         parser.print_help()
@@ -79,3 +69,22 @@ if __name__ == "__main__":
     print("Submiting job to GeoAnalytics Server...")
     arcgis.geoanalytics.manage_data.run_python_script(gis=gis, code=code)
 
+
+if __name__ == "__main__":
+    # Parse script arguments
+    parser = argparse.ArgumentParser(
+        description='Executes a Python script using the Run Python Script tool in ArcGIS GeoAnalytics Server')
+    parser.add_argument('-portal', dest='portal', action='store', help='Portal URL')
+    parser.add_argument('-username', dest='username', action='store', help='Portal username')
+    parser.add_argument('-password', dest='password', action='store', help='Portal password')
+    parser.add_argument('-profile', dest='profile', action='store', help='GIS profile (stored credentials)')
+    parser.add_argument('-script', dest='script', action='store', help='Full path to Python script')
+    args = parser.parse_args()
+    url = vars(args)["portal"]
+    u = vars(args)["username"]
+    pw = vars(args)["password"]
+    prf = vars(args)["profile"]
+    s = vars(args)["script"]
+
+    # Submit job
+    submit(s, url, u, pw, prf)
