@@ -74,6 +74,8 @@ if __name__ == "__main__":
     arcgis.env.verbose = True
 
     # Execute the Run Python Script tool
+    # https://developers.arcgis.com/rest/services-reference/run-python-script.htm
+    # https://esri.github.io/arcgis-python-api/apidoc/html/arcgis.geoanalytics.manage_data.html#run-python-script
     print("Submiting job to GeoAnalytics Server...")
     arcgis.geoanalytics.manage_data.run_python_script(gis=gis, code=code)
 
