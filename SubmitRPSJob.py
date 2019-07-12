@@ -10,7 +10,7 @@ Example CLI usage:
 SubmitRPSJob.py -portal https://mydomain.com/portal -username analyst1 -password ilovegis -script C:\workflow1.py
 
 Example Python usage:
-import SubmitRPSJob
+from SubmitRPSJob import submit
 submit(profile="demo1", script="C:\workflow1.py")
 """
 
@@ -66,7 +66,7 @@ def submit(script_path, portal_url=None, username=None, password=None, profile=N
     # Execute the Run Python Script tool
     # https://developers.arcgis.com/rest/services-reference/run-python-script.htm
     # https://esri.github.io/arcgis-python-api/apidoc/html/arcgis.geoanalytics.manage_data.html#run-python-script
-    print("Submiting job to GeoAnalytics Server...")
+    print("Submitting job to GeoAnalytics Server...")
     arcgis.geoanalytics.manage_data.run_python_script(gis=gis, code=code)
 
 
