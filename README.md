@@ -1,5 +1,5 @@
 # Run Python Script - Samples
-**Utilities and sample scripts for the Run Python Script GeoAnalytics tool**
+**Utilities and sample scripts for the Run Python Script GeoAnalytics Server tool**
 
 ### Resources:
 - [REST API documentation](https://developers.arcgis.com/rest/services-reference/run-python-script.htm)
