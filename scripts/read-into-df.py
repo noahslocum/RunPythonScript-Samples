@@ -7,7 +7,7 @@ import time
 print("LOADING LAYERS INTO DATAFRAMES...")
 # Load the a layer of tree locations into a DataFrame
 # Data can be found at https://data.cityofnewyork.us/Environment/2015-Street-Tree-Census-Tree-Data/uvpi-gqnh
-layer_url = "https://gax-large.ga.geocloud.com/arcgis/rest/services/DataStoreCatalogs/bigDataFileShares_ga-server-demo-data-bdfs/BigDataCatalogServer/NYC_tree_survey"
+layer_url = "https://mydomain.com/arcgis/rest/services/DataStoreCatalogs/bigDataFileShares_demo-bdfs/BigDataCatalogServer/NYC_tree_survey"
 NYC_tree_survey = spark.read.format("webgis").load(layer_url)
 
 # Show DataFrame schema
