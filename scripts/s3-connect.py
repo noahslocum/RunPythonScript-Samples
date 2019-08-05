@@ -1,6 +1,6 @@
 """
 Only DataFrames written with format("webgis") will be available in ArcGIS Enteprise. However, there may be times
-where you would want to instead use a different write format (there are many included with pyspark) to save a DataFrame.
+when you would want to instead use a different write format (there are many included with pyspark) to save a DataFrame.
 For example, you may want to write out data as JSON, which is not supported in Big Data File Shares.
 This script shows how you can write json files directly to an Amazon S3 bucket without ArcGIS Enterprise
 using format("json").
@@ -9,6 +9,7 @@ Note: To write a dataset to an Amazon S3 bucket as a Big Data File Share (which 
 Enterprise as a datasource for other GeoAnalytics tools) see
 https://developers.arcgis.com/rest/services-reference/using-webgis-layers-in-pyspark.htm#ESRI_SECTION1_6911CFB380294FD790F13C7B5974DF8C
 """
+from pyspark.sql import *
 from pyspark.sql import functions as f
 
 
@@ -34,7 +35,10 @@ icebergs_flattened = icebergs.withColumn("longitude", f.col("$geometry.x"))\
                              .withColumn("latitude", f.col("$geometry.y"))\
                              .drop("$geometry")
 
+
+print("WRITING JSON TO AMAZON S3...")
 # Write the DataFrame directly to a S3 bucket using format("json").
 # In this case the GeoAnalytics Server user must have write access to the S3 bucket, through an IAM role for example.
 # The result will be stored in multiple .json files in a folder called "icebergs".
+# The result will not be managed by ArcGIS Enterprise and cannot be used as input to other GeoAnalytics tools.
 icebergs_flattened.write.format("json").save("s3a://<bucket>/icebergs")
