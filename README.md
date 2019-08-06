@@ -1,6 +1,17 @@
 # Run Python Script - Samples
 **Utilities and sample scripts for the Run Python Script GeoAnalytics Server tool**
 
+_SubmitRPSJob.py_ uses the ArcGIS API for Python to submit a script to the Run Python Script tool on your GeoAnalytics Server. The utility can be used in command line (`python SubmitRPSJob.py -portal https://mydomain.com/portal -username analyst1 -password ilovegis -script C:\workflow1.py`) or in the Python console:
+```
+from SubmitRPSJob import submit
+submit(portal_url="https://mydomain.com/portal",username="analyst1", password="ilovegis", script_path=r"C:\workflow1.py")
+```
+The _scripts_ folder contains sample python scripts demonstrating functionality included with Run Python Script:
+- _read-into-df.py_ - create Spark DataFrames from ArcGIS Enterprise layers 
+- _write-to-webgis.py_ - write a Spark DataFrame to an ArcGIS Enterprise layer
+- _run-ga-tools.py_ - chain GeoAnalytics tools into an analysis pipeline
+- _es-connect.py_ - read data from outside of ArcGIS Enterprise with pyspark
+- _s3-connect.py_ - write data outside of ArcGIS Enterprise with pyspark
 
 ### Other Resources:
 - [REST API documentation](https://developers.arcgis.com/rest/services-reference/run-python-script.htm)
