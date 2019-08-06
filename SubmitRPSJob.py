@@ -11,7 +11,7 @@ SubmitRPSJob.py -portal https://mydomain.com/portal -username analyst1 -password
 
 Example Python usage:
 from SubmitRPSJob import submit
-submit(profile="demo1", script="C:\workflow1.py")
+submit(profile="demo1", script_path="C:\workflow1.py")
 """
 
 import arcgis.env
