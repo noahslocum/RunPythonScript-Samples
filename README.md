@@ -1,6 +1,8 @@
 # Run Python Script - Samples
 **Utilities and sample scripts for the Run Python Script GeoAnalytics Server tool**
 
+For an overview of Run Python Script, check out [this blog post](https://www.esri.com/arcgis-blog/products/geoanalytics-server/analytics/extend-your-big-data-analysis-with-spark/)
+
 _SubmitRPSJob.py_ uses the ArcGIS API for Python to submit a script to the Run Python Script tool on your GeoAnalytics Server. The utility can be used in command line (`python SubmitRPSJob.py -portal https://mydomain.com/portal -username analyst1 -password ilovegis -script C:\workflow1.py`) or in the Python console:
 ```
 from SubmitRPSJob import submit
